@@ -36,7 +36,7 @@ func (gorbitsa *Gorbitsa) executeNext(instructions [256]Instruction) {
 		gorbitsa.regX, _ = reader.ReadByte()
 	case 'B':
 		if gorbitsa.regX == 0 {
-			gorbitsa.regPc = uint32(gorbitsa.memory[instruction.param])
+			gorbitsa.regPc = uint32(instruction.param)
 		}
 	case 'I':
 		gorbitsa.regX += instruction.param
@@ -70,7 +70,7 @@ func compileProgram(program string) [256]Instruction {
 }
 
 func main() {
-	const program = "S72 T S101 T S108 T T S111 T S32 T S87 T S111 T S114 T S108 T S100 T"
+	const program = "R O0 O1 R I255 O2 G0 A1 O0 G2 I255 O2 B15 S0 B6 G0 T"
 	var instructions = compileProgram(program)
 
 	var gorbitsa = Gorbitsa{}
